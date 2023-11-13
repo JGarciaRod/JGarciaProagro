@@ -1,0 +1,409 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="JGarciaProagroModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Estado">
+          <Key>
+            <PropertyRef Name="IdEstado" />
+          </Key>
+          <Property Name="IdEstado" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Estado" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Georreferencias">
+          <Key>
+            <PropertyRef Name="IdGeorreferencias" />
+          </Key>
+          <Property Name="IdGeorreferencias" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdEstado" Type="int" />
+          <Property Name="Latitud" Type="float" />
+          <Property Name="Longitud" Type="float" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="IdUsuario" />
+          </Key>
+          <Property Name="IdUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="50" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" />
+          <Property Name="FechaRegistro" Type="date" />
+          <Property Name="RFC" Type="varchar" MaxLength="13" />
+        </EntityType>
+        <Association Name="FK__Georrefer__Longi__2B3F6F97">
+          <End Role="Estado" Type="Self.Estado" Multiplicity="0..1" />
+          <End Role="Georreferencias" Type="Self.Georreferencias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estado">
+              <PropertyRef Name="IdEstado" />
+            </Principal>
+            <Dependent Role="Georreferencias">
+              <PropertyRef Name="IdEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="EstadoGetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GeorreferenciasAdd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdEstado" Type="int" Mode="In" />
+          <Parameter Name="latitud" Type="float" Mode="In" />
+          <Parameter Name="longitud" Type="float" Mode="In" />
+        </Function>
+        <Function Name="GeorreferenciasDelete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idGeorreferencias" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GeorreferenciasGetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GeorreferenciasGetById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdGeorreferencias" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GeorreferenciasUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idGeorreferencias" Type="int" Mode="In" />
+          <Parameter Name="idEstado" Type="int" Mode="In" />
+          <Parameter Name="latitud" Type="float" Mode="In" />
+          <Parameter Name="longitud" Type="float" Mode="In" />
+        </Function>
+        <Function Name="PermisosAdd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idUsuario" Type="int" Mode="In" />
+          <Parameter Name="idEstado" Type="int" Mode="In" />
+        </Function>
+        <Function Name="PermisosDelete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idUsuario" Type="int" Mode="In" />
+          <Parameter Name="idEstado" Type="int" Mode="In" />
+        </Function>
+        <Function Name="PermisosGetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="PermisosGetById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idUsuario" Type="int" Mode="In" />
+        </Function>
+        <Function Name="PermisosUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idUsuario" Type="int" Mode="In" />
+          <Parameter Name="idEstado" Type="int" Mode="In" />
+        </Function>
+        <Function Name="UsuarioAdd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="password" Type="varchar" Mode="In" />
+          <Parameter Name="nombre" Type="varchar" Mode="In" />
+          <Parameter Name="fecharegistro" Type="date" Mode="In" />
+          <Parameter Name="rfc" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="UsuarioDDL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="UsuarioDelete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idUsuario" Type="int" Mode="In" />
+        </Function>
+        <Function Name="UsuarioGetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="UsuarioGetById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idUsuario" Type="int" Mode="In" />
+        </Function>
+        <Function Name="UsuarioUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idUsuario" Type="int" Mode="In" />
+          <Parameter Name="password" Type="varchar" Mode="In" />
+          <Parameter Name="nombre" Type="varchar" Mode="In" />
+          <Parameter Name="fecharegistro" Type="date" Mode="In" />
+          <Parameter Name="rfc" Type="varchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="JGarciaProagroModelStoreContainer">
+          <EntitySet Name="Estado" EntityType="Self.Estado" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Georreferencias" EntityType="Self.Georreferencias" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Georrefer__Longi__2B3F6F97" Association="Self.FK__Georrefer__Longi__2B3F6F97">
+            <End Role="Estado" EntitySet="Estado" />
+            <End Role="Georreferencias" EntitySet="Georreferencias" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="JGarciaProagroModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Estado">
+          <Key>
+            <PropertyRef Name="IdEstado" />
+          </Key>
+          <Property Name="IdEstado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Estado1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Georreferencias" Relationship="JGarciaProagroModel.FK__Georrefer__Longi__2B3F6F97" FromRole="Estado" ToRole="Georreferencia" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="IdUsuario" />
+          </Key>
+          <Property Name="IdUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FechaRegistro" Type="DateTime" Precision="0" />
+          <Property Name="RFC" Type="String" MaxLength="13" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityContainer Name="JGarciaProagroEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Estadoes" EntityType="Self.Estado" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuario" />
+          <FunctionImport Name="PermisosAdd">
+            <Parameter Name="idUsuario" Mode="In" Type="Int32" />
+            <Parameter Name="idEstado" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="PermisosDelete">
+            <Parameter Name="idUsuario" Mode="In" Type="Int32" />
+            <Parameter Name="idEstado" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="PermisosGetById" ReturnType="Collection(JGarciaProagroModel.PermisosGetById_Result)">
+          <Parameter Name="idUsuario" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="PermisosUpdate">
+            <Parameter Name="idUsuario" Mode="In" Type="Int32" />
+            <Parameter Name="idEstado" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="UsuarioAdd">
+            <Parameter Name="password" Mode="In" Type="String" />
+            <Parameter Name="nombre" Mode="In" Type="String" />
+            <Parameter Name="fecharegistro" Mode="In" Type="DateTime" />
+            <Parameter Name="rfc" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="UsuarioDelete">
+          <Parameter Name="idUsuario" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="UsuarioGetAll" ReturnType="Collection(JGarciaProagroModel.UsuarioGetAll_Result)" />
+          <FunctionImport Name="UsuarioGetById" ReturnType="Collection(JGarciaProagroModel.UsuarioGetById_Result)">
+          <Parameter Name="idUsuario" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="UsuarioUpdate">
+            <Parameter Name="idUsuario" Mode="In" Type="Int32" />
+            <Parameter Name="password" Mode="In" Type="String" />
+            <Parameter Name="nombre" Mode="In" Type="String" />
+            <Parameter Name="fecharegistro" Mode="In" Type="DateTime" />
+            <Parameter Name="rfc" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="Georreferencias" EntityType="JGarciaProagroModel.Georreferencia" />
+          <AssociationSet Name="FK__Georrefer__Longi__2B3F6F97" Association="JGarciaProagroModel.FK__Georrefer__Longi__2B3F6F97">
+            <End Role="Estado" EntitySet="Estadoes" />
+            <End Role="Georreferencia" EntitySet="Georreferencias" />
+          </AssociationSet>
+          <FunctionImport Name="GeorreferenciasAdd">
+            <Parameter Name="IdEstado" Mode="In" Type="Int32" />
+            <Parameter Name="latitud" Mode="In" Type="Double" />
+            <Parameter Name="longitud" Mode="In" Type="Double" />
+          </FunctionImport>
+          <FunctionImport Name="GeorreferenciasDelete">
+          <Parameter Name="idGeorreferencias" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GeorreferenciasGetById" ReturnType="Collection(JGarciaProagroModel.GeorreferenciasGetById_Result)">
+          <Parameter Name="IdGeorreferencias" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GeorreferenciasUpdate">
+            <Parameter Name="idGeorreferencias" Mode="In" Type="Int32" />
+            <Parameter Name="idEstado" Mode="In" Type="Int32" />
+            <Parameter Name="latitud" Mode="In" Type="Double" />
+            <Parameter Name="longitud" Mode="In" Type="Double" />
+          </FunctionImport>
+          <FunctionImport Name="GeorreferenciasGetAll" ReturnType="Collection(JGarciaProagroModel.GeorreferenciasGetAll_Result)" />
+          <FunctionImport Name="EstadoGetAll" ReturnType="Collection(JGarciaProagroModel.EstadoGetAll_Result)" />
+          <FunctionImport Name="PermisosGetAll" ReturnType="Collection(JGarciaProagroModel.PermisosGetAll_Result)" />
+          <FunctionImport Name="UsuarioDDL" ReturnType="Collection(JGarciaProagroModel.UsuarioDDL_Result)" />
+        </EntityContainer>
+        <ComplexType Name="PermisosGetById_Result">
+          <Property Type="Int32" Name="IdUsuario" Nullable="true" />
+          <Property Type="Int32" Name="IdEstado" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="UsuarioGetAll_Result">
+          <Property Type="Int32" Name="IdUsuario" Nullable="false" />
+          <Property Type="String" Name="Password" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Nombre" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="FechaRegistro" Nullable="true" />
+          <Property Type="String" Name="RFC" Nullable="true" MaxLength="13" />
+        </ComplexType>
+        <ComplexType Name="UsuarioGetById_Result">
+          <Property Type="Int32" Name="IdUsuario" Nullable="false" />
+          <Property Type="String" Name="Password" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Nombre" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="FechaRegistro" Nullable="true" />
+          <Property Type="String" Name="RFC" Nullable="true" MaxLength="13" />
+        </ComplexType>
+        <EntityType Name="Georreferencia">
+          <Key>
+            <PropertyRef Name="IdGeorreferencias" />
+          </Key>
+          <Property Name="IdGeorreferencias" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdEstado" Type="Int32" />
+          <Property Name="Latitud" Type="Double" />
+          <Property Name="Longitud" Type="Double" />
+          <NavigationProperty Name="Estado" Relationship="JGarciaProagroModel.FK__Georrefer__Longi__2B3F6F97" FromRole="Georreferencia" ToRole="Estado" />
+        </EntityType>
+        <Association Name="FK__Georrefer__Longi__2B3F6F97">
+          <End Type="JGarciaProagroModel.Estado" Role="Estado" Multiplicity="0..1" />
+          <End Type="JGarciaProagroModel.Georreferencia" Role="Georreferencia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estado">
+              <PropertyRef Name="IdEstado" />
+            </Principal>
+            <Dependent Role="Georreferencia">
+              <PropertyRef Name="IdEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="GeorreferenciasGetById_Result">
+          <Property Type="Int32" Name="IdGeorreferencias" Nullable="false" />
+          <Property Type="Int32" Name="IdEstado" Nullable="true" />
+          <Property Type="Double" Name="Latitud" Nullable="true" />
+          <Property Type="Double" Name="Longitud" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GeorreferenciasGetAll_Result">
+          <Property Type="Int32" Name="IdGeorreferencias" Nullable="false" />
+          <Property Type="Int32" Name="IdEstado" Nullable="false" />
+          <Property Type="String" Name="Estado" Nullable="true" MaxLength="50" />
+          <Property Type="Double" Name="Latitud" Nullable="true" />
+          <Property Type="Double" Name="Longitud" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="EstadoGetAll_Result">
+          <Property Type="Int32" Name="IdEstado" Nullable="false" />
+          <Property Type="String" Name="Estado" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="PermisosGetAll_Result">
+          <Property Type="Int32" Name="IdUsuario" Nullable="false" />
+          <Property Type="String" Name="Nombre" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="IdEstado" Nullable="false" />
+          <Property Type="String" Name="Estado" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="UsuarioDDL_Result">
+          <Property Type="Int32" Name="IdUsuario" Nullable="false" />
+          <Property Type="String" Name="Nombre" Nullable="true" MaxLength="50" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="JGarciaProagroModelStoreContainer" CdmEntityContainer="JGarciaProagroEntities">
+          <EntitySetMapping Name="Estadoes">
+            <EntityTypeMapping TypeName="JGarciaProagroModel.Estado">
+              <MappingFragment StoreEntitySet="Estado">
+                <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
+                <ScalarProperty Name="Estado1" ColumnName="Estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuarios">
+            <EntityTypeMapping TypeName="JGarciaProagroModel.Usuario">
+              <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />
+                <ScalarProperty Name="RFC" ColumnName="RFC" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="PermisosAdd" FunctionName="JGarciaProagroModel.Store.PermisosAdd" />
+          <FunctionImportMapping FunctionImportName="PermisosDelete" FunctionName="JGarciaProagroModel.Store.PermisosDelete" />
+          <FunctionImportMapping FunctionImportName="PermisosGetById" FunctionName="JGarciaProagroModel.Store.PermisosGetById">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="JGarciaProagroModel.PermisosGetById_Result">
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PermisosUpdate" FunctionName="JGarciaProagroModel.Store.PermisosUpdate" />
+          <FunctionImportMapping FunctionImportName="UsuarioAdd" FunctionName="JGarciaProagroModel.Store.UsuarioAdd" />
+          <FunctionImportMapping FunctionImportName="UsuarioDelete" FunctionName="JGarciaProagroModel.Store.UsuarioDelete" />
+          <FunctionImportMapping FunctionImportName="UsuarioGetAll" FunctionName="JGarciaProagroModel.Store.UsuarioGetAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="JGarciaProagroModel.UsuarioGetAll_Result">
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />
+                <ScalarProperty Name="RFC" ColumnName="RFC" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="UsuarioGetById" FunctionName="JGarciaProagroModel.Store.UsuarioGetById">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="JGarciaProagroModel.UsuarioGetById_Result">
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />
+                <ScalarProperty Name="RFC" ColumnName="RFC" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="UsuarioUpdate" FunctionName="JGarciaProagroModel.Store.UsuarioUpdate" />
+          <EntitySetMapping Name="Georreferencias">
+            <EntityTypeMapping TypeName="JGarciaProagroModel.Georreferencia">
+              <MappingFragment StoreEntitySet="Georreferencias">
+                <ScalarProperty Name="Longitud" ColumnName="Longitud" />
+                <ScalarProperty Name="Latitud" ColumnName="Latitud" />
+                <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
+                <ScalarProperty Name="IdGeorreferencias" ColumnName="IdGeorreferencias" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GeorreferenciasAdd" FunctionName="JGarciaProagroModel.Store.GeorreferenciasAdd" />
+          <FunctionImportMapping FunctionImportName="GeorreferenciasDelete" FunctionName="JGarciaProagroModel.Store.GeorreferenciasDelete" />
+          <FunctionImportMapping FunctionImportName="GeorreferenciasGetById" FunctionName="JGarciaProagroModel.Store.GeorreferenciasGetById">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="JGarciaProagroModel.GeorreferenciasGetById_Result">
+                <ScalarProperty Name="IdGeorreferencias" ColumnName="IdGeorreferencias" />
+                <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
+                <ScalarProperty Name="Latitud" ColumnName="Latitud" />
+                <ScalarProperty Name="Longitud" ColumnName="Longitud" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GeorreferenciasUpdate" FunctionName="JGarciaProagroModel.Store.GeorreferenciasUpdate" />
+          <FunctionImportMapping FunctionImportName="GeorreferenciasGetAll" FunctionName="JGarciaProagroModel.Store.GeorreferenciasGetAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="JGarciaProagroModel.GeorreferenciasGetAll_Result">
+                <ScalarProperty Name="IdGeorreferencias" ColumnName="IdGeorreferencias" />
+                <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Latitud" ColumnName="Latitud" />
+                <ScalarProperty Name="Longitud" ColumnName="Longitud" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="EstadoGetAll" FunctionName="JGarciaProagroModel.Store.EstadoGetAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="JGarciaProagroModel.EstadoGetAll_Result">
+                <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PermisosGetAll" FunctionName="JGarciaProagroModel.Store.PermisosGetAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="JGarciaProagroModel.PermisosGetAll_Result">
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="UsuarioDDL" FunctionName="JGarciaProagroModel.Store.UsuarioDDL">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="JGarciaProagroModel.UsuarioDDL_Result">
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

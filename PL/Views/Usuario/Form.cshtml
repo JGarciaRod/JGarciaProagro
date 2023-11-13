@@ -1,0 +1,56 @@
+﻿@model ML.Usuario
+@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Agregar</h2>
+
+@using (Html.BeginForm("Form", "Usuario", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.HiddenFor(model => model.IdUsuario)
+
+    <div class="row">
+        <div class="col-md-3">
+            @Html.LabelFor(model => model.Nombre, new { @class = "hidden" })
+            @Html.TextBoxFor(model => model.Nombre, new { @class = "coll-auto" })
+        </div>
+
+        <div class="col-md-3">
+            @Html.LabelFor(model => model.Passwoord, new { @class = "hidden" })
+            @Html.TextBoxFor(model => model.Passwoord, new { @class = "coll-auto", @Type = "password" })
+        </div>
+
+        <div class="col-md-3">
+            @Html.LabelFor(model => model.RFC, new { @class = "hidden" })
+            @Html.TextBoxFor(model => model.RFC, new {@class = "coll-auto", @placeholder="13 CARACTERES" })
+        </div>
+
+        <div class="col-md-3">
+            @Html.LabelFor(model => model.FechaIngreso, new { @class = "hidden" })
+            <input id="startDate" class="form-control" type="date" name="FechaIngreso" readonly />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-1">
+            <input type="submit" class="btn btn-success btn-sm seach input-group" value="Guardar" />
+        </div>
+        <div class="col-md-1">
+            <a id="back" class="btn btn-danger" href="@Url.Action("GetAll", "Usuario")">Volver</a>
+        </div>
+    </div>
+}
+
+<script type="text/javascript">
+
+    document.addEventListener('DOMContentLoaded', () => {
+
+        const dateInput = document.getElementById('startDate')
+        // formato ISO yyyy-mm-ddThh:mm:ss.ffffff
+        dateInput.value = new Date().toISOString() // fecha actual en formato iso
+            // seleccionamos lo que esta a la izquierda de la T, que es la parte de la fecha
+            .split('T')[0]
+
+    })
+</script>

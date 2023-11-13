@@ -1,0 +1,33 @@
+﻿@model ML.Permisos
+@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Form</h2>
+
+@using (Html.BeginForm("Form", "Permisos", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @*@Html.HiddenFor(model => model.Usuario.IdUsuario)*@
+
+    <div class="row">
+        <div class="col-md-6">
+            @Html.LabelFor(model => model.Usuario.IdUsuario, new { @class = "hidden" })
+            @Html.DropDownListFor(model => model.Usuario.IdUsuario, new SelectList(Model.Usuario.Usuarios, "IdUsuario", "Nombre"), "Selecciona un Usuario", new { @class = "form-controls" })
+        </div>
+
+        <div class="col-md-6">
+            @Html.LabelFor(model=> model.Estado.IdEstado, new {@class = "hidden"})
+            @Html.DropDownListFor(model => model.Estado.IdEstado, new SelectList(Model.Estado.Estados, "IdEstado", "Estado1"), "Selecciona un estado", new { @class = "form-controls" })
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-1">
+            <input type="submit" class="btn btn-success btn-sm seach input-group" value="Guardar" />
+        </div>
+        <div class="col-md-1">
+            <a id="back" class="btn btn-danger" href="@Url.Action("GetAll", "Georreferencias")">Volver</a>
+        </div>
+    </div>
+}

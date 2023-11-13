@@ -1,0 +1,43 @@
+﻿@model ML.Georreferencias
+@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Form</h2>
+
+@using (Html.BeginForm("Form", "Georreferencias", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.HiddenFor(model => model.IdGeorreferencias)
+
+    <div class="row">
+
+        <div class="col-md-3">
+            @Html.LabelFor(model => model.Estado.IdEstado, new { @class = "hidden" })
+            @Html.DropDownListFor(model => model.Estado.IdEstado, new SelectList(Model.Estado.Estados, "IdEstado", "Estado1"), "Selecciona un estado", new { @class = "form-controls" })
+        </div>
+
+        <div class="col-md-3">
+            @Html.LabelFor(model => model.Latitud, new { @class = "hidden" });
+            @Html.TextBoxFor(model => model.Latitud, new { @class = "coll-auto" })
+        </div>
+
+        <div>
+            @Html.LabelFor(model => model.Longitud, new { @class = "hidden" });
+            @Html.TextBoxFor(model => model.Longitud, new { @class = "coll-auto" })
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-1">
+            <input type="submit" class="btn btn-success btn-sm seach input-group" value="Guardar" />
+        </div>
+        <div class="col-md-1">
+            <a id="back" class="btn btn-danger" href="@Url.Action("GetAll", "Georreferencias")">Volver</a>
+        </div>
+    </div>
+
+
+
+}

@@ -1,0 +1,57 @@
+﻿@model ML.Georreferencias
+@{
+    ViewBag.Title = "GetAll";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>GetAll</h2>
+
+<a class="btn btn-success" href=@Url.Action("Form","Georreferencias" , new {IdGeorreferencias = 0})>Agregar nueva Georreferencia</a>
+
+@if (Model.ListGeorreferencias != null)
+{
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Editar</th>
+                        <th>Estado</th>
+                        <th>Latitud</th>
+                        <th>Longitud</th>
+                        <th>Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (ML.Georreferencias georreferencias in Model.ListGeorreferencias)
+                    {
+                        <tr>
+                            <td>
+                                <a class="btn btn-success" href=@Url.Action("Form", "Georreferencias", new { IdGeorreferencias = georreferencias.IdGeorreferencias})>
+                                    <i class="fa-regular fa-pen-to-square"></i>
+                                </a>
+                            </td>
+                            <td>@georreferencias.Estado.Estado1</td>
+                            <td>@georreferencias.Latitud</td>
+                            <td>@georreferencias.Longitud</td>
+                            <td>
+                                <a class="btn btn-success" href=@Url.Action("Delete", "Georreferencias", new { IdGeorreferencias = georreferencias.IdGeorreferencias})>
+                                    <i class="fa-solid fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+else
+{
+    <h1>
+        No existen Usuarios aun.
+    </h1>
+}
+
+

@@ -1,0 +1,57 @@
+﻿@model ML.Usuario
+@{
+    ViewBag.Title = "GetAll";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>GetAll</h2>
+
+<a class="btn btn-success" href=@Url.Action("Form","Usuario" , new {IdUsuario = 0})>Agregar nueva Unidad</a>
+
+@if(Model.Usuarios != null)
+            {
+    <div class="row">
+        <div class="col-md-12">
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Actualizar</th>
+                        <th>Nombre</th>
+                        <th>Fecha de ingreso</th>
+                        <th>RFC</th>
+                        <th>Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (ML.Usuario usuario in Model.Usuarios) {
+                    <tr>
+                        <td>
+                            <a class="btn btn-success" href=@Url.Action("Form", "Usuario", new { IdUsuario = usuario.IdUsuario})>
+                                <i class="fa-solid fa-user-pen"></i>
+                            </a>
+                        </td>
+                        <td>@usuario.Nombre</td>
+                        <td>@usuario.FechaIngreso</td>
+                        <td>@usuario.RFC</td>
+                        <td>
+                            <a class="btn btn-danger" href="@Url.Action("Dell","Usuario", new { IdUsuario = usuario.IdUsuario})"
+                               onclick="return confirm('Estas seguro en eliminarlo ?');">
+                                <i class="fa-solid fa-user-xmark"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+}
+else
+            {
+    <h1>
+        No existen Usuarios aun.
+    </h1>
+            }

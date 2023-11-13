@@ -1,0 +1,54 @@
+﻿@model ML.Permisos
+@{
+    ViewBag.Title = "GetAll";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>GetAll</h2>
+
+<a class="btn btn-success" href=@Url.Action("Form","Permisos" , new {IdUsuario = 0})>Agregar nuevo Permiso</a>
+
+@if(Model.ListPermisos != null)
+            {
+
+
+<div class="row">
+        <div class="col-md-12">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Editar</th>
+                        <th>Nombre Usaurio</th>
+                        <th>Nombre Estado</th>
+                        <th>Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (ML.Permisos permisos in Model.ListPermisos)
+                {
+                        <tr>
+                            <td>
+                                <a class="btn btn-success" href=@Url.Action("Form", "Permisos", new { IdUsuario = permisos.Usuario.IdUsuario })>
+                                    <i class="fa-regular fa-pen-to-square"></i>
+                                </a>
+                            </td>
+                            <td>@permisos.Usuario.Nombre</td>
+                            <td>@permisos.Estado.Estado1</td>
+                            <td>
+                                <a class="btn btn-success" href=@Url.Action("Delete", "Permisos", new { IdUsuario = permisos.Usuario.IdUsuario })>
+                                    <i class="fa-regular fa-pen-to-square"></i>
+                                </a>
+                            </td>
+                        </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+else
+            {
+                <h1>
+                    No hay registros aun.
+                </h1>
+            }
